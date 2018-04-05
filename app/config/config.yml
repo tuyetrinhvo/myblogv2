@@ -28,10 +28,12 @@ framework:
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  session.handler.native_file
         save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
-        name : "session_mytodolist"
+        name : "session_mywebsite"
     fragments:       ~
     http_method_override: true
     assets: ~
+    php_errors:
+        log: true
 
 # Twig Configuration
 twig:
@@ -69,3 +71,25 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# Assetic Configuration
+assetic:
+   debug:             '%kernel.debug%'
+   use_controller:    '%kernel.debug%'
+   filters:
+       cssrewrite: ~
+       jsqueeze: ~
+       scssphp:
+         formatter: 'Leafo\ScssPhp\Formatter\Compressed'
+
+# FosUser Configuration
+fos_user:
+    db_driver: orm # le type BDD à utiliser, on utilise l'ORM Doctrine
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+    from_email:
+        address: me@mywebsite.com
+        sender_name: me
+    registration:
+        form:
+            type: AppBundle\Form\Type\RegistrationType
