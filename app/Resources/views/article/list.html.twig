@@ -15,14 +15,14 @@
             <li class="page-scroll">
                 <a href="#about">About</a>
             </li>
+            <li class="page-scroll">
+                <a href="#contact">Contact</a>
+            </li>
             {% if is_granted('ROLE_ADMIN') %}
             <li class="page-scroll">
                 <a href="{{ path('user_list') }}">Users</a>
             </li>
             {% endif %}
-            <li class="page-scroll">
-                <a href="#contact">Contact</a>
-            </li>
         </ul>
     </div>
 {% endblock %}
