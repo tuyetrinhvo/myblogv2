@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block header_img %}{% endblock %}
 
-{% block header_title %}<h1>Liste des utilisateurs</h1>{% endblock %}
 
 {% block body %}
     {% if users|length == 0 %}
@@ -10,6 +8,16 @@
             Il n'y a pas encore d'utilisateur enregistré. <a href="{{ path('user_create') }}" class="btn btn-warning pull-right">Créer un utilisateur</a>
         </div>
     {% else %}
+
+<section id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class ="light">Liste des Utilisateurs</h2>
+                <hr class="star-light">
+            </div>
+        </div>
+
         <div class="row">
             <table class="table">
                 <thead>
@@ -38,4 +46,7 @@
 
         </div>
     {% endif %}
+
+    </div>
+</section>
 {% endblock %}

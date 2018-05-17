@@ -3,41 +3,36 @@
 {% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
 
 {% block body %}
+<section id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class ="light">Liste des Articles</h2>
+                <hr class="star-light">
+            </div>
+        </div>
 
-    <div class="row">
-        {% for task in tasks %}
-        <div class="col-sm-4 col-lg-4 col-md-4">
-            <div class="thumbnail">
+        <div class="row">
+        {% for article in articles %}
+            <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="caption">
-                    <h4 class="pull-right">
-                        {% if task.isDone %}<span class="glyphicon glyphicon-ok"></span>{% else %}<span class="glyphicon glyphicon-remove"></span>{% endif %}
-                    </h4>
-                    <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
-                    <p>{{ task.content }}
-                    {% if task.author %}
-                    <p><em>Auteur : {{ task.author.username }}</em></p>
-                    {% endif %}
+                    <h4><a href="{{ path('article_edit', {'id' : article.id }) }}">{{ article.title }}</a></h4>
+                    <p>{{ article.content }}
+                    <p><em>Auteur : {{ article.author.username }}</em></p>
                 </div>
                 <div>
-                    <form action="{{ path('task_toggle', {'id' : task.id }) }}">
-                        <button class="btn btn-success btn-sm pull-right">
-                            {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
-                        </button>
-                    </form>
-                    <form action="{{ path('task_delete', {'id' : task.id }) }}">
+                    <form action="{{ path('article_delete', {'id' : article.id }) }}">
                         <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
                     </form>
                 </div>
             </div>
-        </div>
-        {% else %}
-
             <div class="alert alert-warning" role="alert">
-                Il n'y a pas encore de tâche enregistrée. <a href="{{ path('task_create') }}" class="btn btn-warning pull-right">Créer une tâche</a>
+                Il n'y a pas encore de tâche enregistrée. <a href="{{ path('article_create') }}" class="btn btn-warning pull-right">Créer une tâche</a>
             </div>
         {% endfor %}
+        <a href="{{ path('homepage') }}" class="btn btn-primary btn-xl">Retourner à l'accueil</a>
+        </div>
     </div>
-    <div class="row">
-    <a href="{{ path('homepage') }}" class="btn btn-primary btn-xl">Retourner à l'accueil</a>
-    </div>
+</section>
+
 {% endblock %}
