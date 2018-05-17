@@ -35,6 +35,13 @@ class Avatar
      */
     private $alt;
 
+    /**
+     * @var UploadedFile
+     * @Assert\Image(maxSize="200k", maxSizeMessage="La photo d'avatar ne doit pas dépasser 200k.")
+     */
+    private $file;
+
+    private $tempFilename;
 
     /**
      * Get id
@@ -92,6 +99,100 @@ class Avatar
     public function getAlt()
     {
         return $this->alt;
+    }
+
+    /**
+     * Set file
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file)
+    {
+        $this->file = $file;
+
+        if (null !== $this ->extension){
+            $this->tempFilename = $this->extension;
+
+            $this->extension = null;
+            $this->alt = null;
+        }
+    }
+
+    /**
+     * Get file
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate
+     */
+    public function preUpload()
+    {
+        if (null === $this ->file){
+            return;
+        }
+
+        $this->extension = $this->file->getClientOriginalName();
+        $this->alt = $this->file->getClientOriginalName();
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->file){
+            return;
+        }
+
+        if (null !== $this->tempFilename){
+            $oldFile = $this->getUploadRootDir().'/'.$this->tempFilename;
+            if(file_exists($oldFile)){
+                unlink($oldFile);
+            }
+        }
+        $this->file->move($this->getUploadRootDir(), $this->extension);
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function preRemoveUpload()
+    {
+        $this->tempFilename = $this->getUploadRootDir().'/'.$this->extension;
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (file_exists($this->tempFilename)){
+            unlink($this->tempFilename);
+        }
+    }
+
+    public function getUploadDir()
+    {
+        return 'uploads/avatars';
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+
+    public function getWebPath()
+    {
+        return $this->getUploadDir().'/'.$this->getId().'.'.$this->getExtension();
     }
 }
 
