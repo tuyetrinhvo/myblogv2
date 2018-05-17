@@ -40,8 +40,8 @@
     {% endblock %}
 
     {% block favicon %}
-        <link rel="icon" type="apple-touch-icon" href="{{ asset('/assets/img/apple-touch-icon_bleu.png')}}"/>
-        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/assets/img/favicon_bleu.png')}}" />
+        <link rel="icon" type="apple-touch-icon" href="{{ asset('/assets/img/apple-touch-icon.png')}}"/>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/assets/img/favicon.png')}}" />
     {% endblock %}
 
 </head>
@@ -59,35 +59,10 @@
             </button>
             <a class="navbar-brand" href="#page-top">Tuyetrinhvo</a>
         </div>
-
+        {% block menu %}
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right active">
-                <li class="hidden">
-                    <a href="#page-top"></a>
-                </li>
-                <li class="page-scroll">
-                    <a href="/">Home</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#portfolio">Portfolio</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#about">About</a>
-                </li>
-                <li>
-                    <a href="{{ asset('/assets/img/mon_CV.pdf')}}" target="blank">CV</a>
-                </li>
-                <li class="active">
-                    <a href="http://blog.ttvo.fr/">Blog</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#contact">Contact</a>
-                </li>
-
-            </ul>
-        </div>
         <!-- /.navbar-collapse -->
+        {% endblock %}
     </div>
     <!-- /.container-fluid -->
 </nav>

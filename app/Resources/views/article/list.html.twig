@@ -1,6 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
+{% block menu %}
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right active">
+            <li class="hidden">
+                <a href="#page-top"></a>
+            </li>
+            <li class="active">
+                <a href="/">Home</a>
+            </li>
+            <li class="page-scroll">
+                <a href="#portfolio">Articles</a>
+            </li>
+            <li class="page-scroll">
+                <a href="#about">About</a>
+            </li>
+            {% if is_granted('ROLE_ADMIN') %}
+            <li class="page-scroll">
+                <a href="{{ path('user_list') }}">Users</a>
+            </li>
+            {% endif %}
+            <li class="page-scroll">
+                <a href="#contact">Contact</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
 
 {% block body %}
 <section id="portfolio">
