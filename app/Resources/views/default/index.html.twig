@@ -64,7 +64,7 @@
                 <li class="hidden">
                     <a href="#page-top"></a>
                 </li>
-                <li class="page-scroll">
+                <li class="active">
                     <a href="/">Home</a>
                 </li>
                 <li class="page-scroll">
@@ -76,8 +76,9 @@
                 <li>
                     <a href="{{ asset('/assets/img/mon_CV.pdf')}}" target="blank">CV</a>
                 </li>
-                <li class="active">
-                    <a href="http://blog.ttvo.fr/">Blog</a>
+                <li class="page-scroll">
+                    {#<a href="{{ path('article_list') }}">Blog</a>#}
+                    <a href="#">Blog</a>
                 </li>
                 <li class="page-scroll">
                     <a href="#contact">Contact</a>
@@ -308,8 +309,8 @@
                     <div class="modal-body">
                         <h2>Project Integrate a Wordpress theme for a client</h2>
                         <hr class="star-primary">
-                        <a href="http://chalets.ttvo.fr"><img src="{{ asset('/assets/img/projet_02.jpg')}}" class="img-responsive img-centered" alt="projet_02"></a>
-                        <p>A real estate agency in the mountains, needs a website to show the chalets they sell. I use WordPress to build their site. <a href="http://chalets.ttvo.fr"> <strong>Chalets et Caviar</strong></a>. This agency wants to be able to update its site regularly on its own without recourse to me.</p>
+                        <a href="http://chalets.ttvo.fr" target="blank"><img src="{{ asset('/assets/img/projet_02.jpg')}}" class="img-responsive img-centered" alt="projet_02"></a>
+                        <p>A real estate agency in the mountains, needs a website to show the chalets they sell. I use WordPress to build their site. <a href="http://chalets.ttvo.fr" target="blank"> <strong>Chalets et Caviar</strong></a>. This agency wants to be able to update its site regularly on its own without recourse to me.</p>
                         <ul class="list-inline item-details">
                             <li>Client:
                                 <strong>Chalets et Caviar</strong>
@@ -342,8 +343,8 @@
                     <div class="modal-body">
                         <h2>Project Analyze a client's needs for their film festival</h2>
                         <hr class="star-primary">
-                        <a href="http://films.ttvo.fr"><img src="{{ asset('/assets/img/projet_03.jpg')}}" class="img-responsive img-centered" alt="projet_03"></a>
-                        <p>Jennifer Viala is the organizer of the Outdoor Film Festival. She aims to select and screen outdoor auteur films from August 5 to 8 at Parc Monceau in Paris. <a href="http://films.ttvo.fr"> <strong>Les Films de Plein Air</strong></a>. Her association has just been created and has a limited budget. She needs to communicate online about her festival, announce the projected movies and collect bookings.</p>
+                        <a href="http://films.ttvo.fr" target="blank"><img src="{{ asset('/assets/img/projet_03.jpg')}}" class="img-responsive img-centered" alt="projet_03"></a>
+                        <p>Jennifer Viala is the organizer of the Outdoor Film Festival. She aims to select and screen outdoor auteur films from August 5 to 8 at Parc Monceau in Paris. <a href="http://films.ttvo.fr" target="blank"> <strong>Les Films de Plein Air</strong></a>. Her association has just been created and has a limited budget. She needs to communicate online about her festival, announce the projected movies and collect bookings.</p>
                         <ul class="list-inline item-details">
                             <li>Client:
                                 <strong>Jennifer Viala - Les Films de Plein Air</strong>
@@ -377,8 +378,8 @@
                         <h2>Project Create my first blog with PHP</h2>
                         <hr class="star-primary">
                         <a href="https://github.com/tuyetrinhvo/myblog"><img src="{{ asset('/assets/img/projet_05.png')}}" class="img-responsive img-centered" alt="projet_05" ></a>
-                        <p>Develop my first web application with PHP and MySQL, and offer you an interesting visibility on the web : <a href="https://github.com/tuyetrinhvo/myblog"> My Blog</a>. There will be no user management to do (authentication / authorization). So everything is visible to everyone and everyone is able to create / edit content too.</p>
-                        <p><strong><a href="http://blog.ttvo.fr"> Here my new blog with Symfony : http://blog.ttvo.fr</a></strong></p>
+                        <p>Develop my first web application with PHP and MySQL, and offer you an interesting visibility on the web : <a href="https://github.com/tuyetrinhvo/myblog" target="blank"> My Blog</a>. There will be no user management to do (authentication / authorization). So everything is visible to everyone and everyone is able to create / edit content too.</p>
+                        <p><a href="https://github.com/tuyetrinhvo/mywebsite" target="blank"> My new blog with Symfony on GitHub. </a> Click here !</p>
                         <ul class="list-inline item-details">
                             <li>Date:
                                 <strong>October 2017 and Mai 2018</strong>
@@ -408,8 +409,8 @@
                     <div class="modal-body">
                         <h2>Project Develop from A to Z the SnowTricks Community Site</h2>
                         <hr class="star-primary">
-                        <a href="http://snow.ttvo.fr"><img src="{{ asset('/assets/img/projet_06.png')}}" class="img-responsive img-centered" alt="projet_06"></a>
-                        <p>Jimmy Sweat is an ambitious entrepreneur. His objective is to make it a tool to learn snowboarding figures, to popularize snowboarding with the greatest number. He wants to capitalize on the content provided by users to acquire a rich database and arouse the interest of users who would go on the site. Subsequently, Jimmy wants to develop a commercial relationship with the snowboard brands thanks to the traffic generated by the content : <a href="http://snow.ttvo.fr"> <strong>My Snowtricks</strong></a>. </p>
+                        <a href="http://snow.ttvo.fr" target="blank"><img src="{{ asset('/assets/img/projet_06.png')}}" class="img-responsive img-centered" alt="projet_06"></a>
+                        <p>Jimmy Sweat is an ambitious entrepreneur. His objective is to make it a tool to learn snowboarding figures, to popularize snowboarding with the greatest number. He wants to capitalize on the content provided by users to acquire a rich database and arouse the interest of users who would go on the site. Subsequently, Jimmy wants to develop a commercial relationship with the snowboard brands thanks to the traffic generated by the content : <a href="http://snow.ttvo.fr" target="blank"> <strong>My Snowtricks</strong></a>. </p>
                         <ul class="list-inline item-details">
                             <li>Client:
                                 <strong>Jimmy Sweat - Snowtricks</strong>
@@ -442,8 +443,8 @@
                     <div class="modal-body">
                         <h2>Project Create a web service exposing an API</h2>
                         <hr class="star-primary">
-                        <a href="http://bilemo.ttvo.fr"><img src="{{ asset('/assets/img/projet_07.png')}}" class="img-responsive img-centered" alt="projet_07"></a>
-                        <p>BileMo is a company offering a selection of high-end mobile phones : <a href="http://bilemo.ttvo.fr"><strong>My Bilemo></strong></a>. BileMo's business model is not to directly sell its products on the site, but to provide all platforms that wish to access the catalog via an API (Application Programming Interface). It is therefore exclusively B2B sales (business to business).</p>
+                        <a href="http://bilemo.ttvo.fr" target="blank"><img src="{{ asset('/assets/img/projet_07.png')}}" class="img-responsive img-centered" alt="projet_07"></a>
+                        <p>BileMo is a company offering a selection of high-end mobile phones : <a href="http://bilemo.ttvo.fr" target="blank"><strong>My Bilemo></strong></a>. BileMo's business model is not to directly sell its products on the site, but to provide all platforms that wish to access the catalog via an API (Application Programming Interface). It is therefore exclusively B2B sales (business to business).</p>
                         <ul class="list-inline item-details">
                             <li>Client:
                                 <strong>Bilemo</strong>
@@ -476,8 +477,8 @@
                     <div class="modal-body">
                         <h2>Project Improve an existing ToDo & Co application</h2>
                         <hr class="star-primary">
-                        <a href="http://todolist.ttvo.fr"><img src="{{ asset('/assets/img/projet_08.png')}}" class="img-responsive img-centered" alt="projet_08"></a>
-                        <p>The company ToDo & Co just went up, and the application had to be developed at full speed to show potential investors that the concept is viable (we're talking about a viable minimum product or MVP). The previous developer's choice was to use the Symfony PHP framework My role here is to improve the quality of the application : <a href="http://todolist.ttvo.fr"> <strong>My Todolist</strong></a></p>
+                        <a href="http://todolist.ttvo.fr" target="blank"><img src="{{ asset('/assets/img/projet_08.png')}}" class="img-responsive img-centered" alt="projet_08"></a>
+                        <p>The company ToDo & Co just went up, and the application had to be developed at full speed to show potential investors that the concept is viable (we're talking about a viable minimum product or MVP). The previous developer's choice was to use the Symfony PHP framework My role here is to improve the quality of the application : <a href="http://todolist.ttvo.fr" target="blank"> <strong>My Todolist</strong></a></p>
                         <ul class="list-inline item-details">
                             <li>Client:
                                 <strong>ToDo & Co</strong>
