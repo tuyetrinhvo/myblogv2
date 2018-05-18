@@ -30,7 +30,3 @@ security:
 
     access_control:
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/users/create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/users, roles: ROLE_ADMIN }
-        - { path: ^/articles, roles: ROLE_USER }

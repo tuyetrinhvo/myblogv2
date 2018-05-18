@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Article
@@ -39,6 +41,8 @@ class Article
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $author;
 
@@ -46,6 +50,7 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="date_created", type="datetime")
+     * @Assert\DateTime()
      */
     private $dateCreated;
 
@@ -53,9 +58,36 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="date_updated", type="datetime")
+     * @Assert\DateTime()
      */
     private $dateUpdated;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="article", cascade={"persist", "remove"})
+     * @Assert\Valid()
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $image;
+
+    /**
+     * Construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->dateCreated = new \DateTime();
+        $this->dateUpdated = new \DateTime();
+        $this->comments = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -186,5 +218,64 @@ class Article
     {
         return $this->dateUpdated;
     }
-}
 
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return Article
+     */
+    public function addComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        $comment->setArticle($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \AppBundle\Entity\Image $image
+     *
+     * @return Article
+     */
+    public function setImage(\AppBundle\Entity\Image $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AppBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+}

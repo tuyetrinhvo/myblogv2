@@ -3,12 +3,16 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @UniqueEntity(fields={"username"}, message="Un Utilisateur existe déjà avec ce nom")
+ * @UniqueEntity(fields={"email"}, message="Cet email a été utilisé")
  */
 class User
 {
@@ -24,7 +28,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
     private $username;
 
@@ -38,7 +42,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
     private $email;
 
@@ -47,7 +51,14 @@ class User
      *
      * @ORM\Column(name="roles", type="array")
      */
-    private $roles;
+    private $roles = ['ROLE_USER'];
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Avatar", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $avatar;
 
 
     /**
@@ -155,5 +166,37 @@ class User
     {
         return $this->roles;
     }
-}
 
+    /**
+     * EraseCreadentials
+     *
+     * @return void
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param \AppBundle\Entity\Avatar $avatar
+     *
+     * @return User
+     */
+    public function setAvatar(\AppBundle\Entity\Avatar $avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return \AppBundle\Entity\Avatar
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+}

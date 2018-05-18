@@ -39,6 +39,8 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $author;
 
@@ -56,7 +58,23 @@ class Comment
      */
     private $dateUpdated;
 
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Article", inversedBy="comments")
+     * 
+     */
+    private $article;
 
+    /**
+     * Construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->dateCreated = new \DateTime();
+        $this->dateUpdated = new \DateTime();
+    }
     /**
      * Get id
      *
@@ -186,5 +204,28 @@ class Comment
     {
         return $this->dateUpdated;
     }
-}
 
+    /**
+     * Set article
+     *
+     * @param \AppBundle\Entity\Article $article
+     *
+     * @return Comment
+     */
+    public function setArticle(\AppBundle\Entity\Article $article = null)
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    /**
+     * Get article
+     *
+     * @return \AppBundle\Entity\Article
+     */
+    public function getArticle()
+    {
+        return $this->article;
+    }
+}
