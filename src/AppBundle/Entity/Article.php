@@ -150,11 +150,11 @@ class Article
     /**
      * Set author
      *
-     * @param string $author
+     * @param \AppBundle\Entity\User $author Some argument description
      *
      * @return Article
      */
-    public function setAuthor($author)
+    public function setAuthor(\AppBundle\Entity\User $author = null)
     {
         $this->author = $author;
 
@@ -164,7 +164,7 @@ class Article
     /**
      * Get author
      *
-     * @return string
+     * @return \AppBundle\Entity\User
      */
     public function getAuthor()
     {

@@ -1,0 +1,30 @@
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right active">
+        <li class="hidden">
+            <a href="#page-top"></a>
+        </li>
+        <li class="active">
+            <a href="/">Home</a>
+        </li>
+        <li class="page-scroll">
+            <a href="#portfolio">Articles</a>
+        </li>
+        <li class="page-scroll">
+            <a href="#about">About</a>
+        </li>
+        <li class="page-scroll">
+            <a href="#contact">Contact</a>
+        </li>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <li><a  href="{{ path('logout') }}">Logout</a></li>
+        {% else %}
+            <li><a  href="{{ path('login') }}">Login</a></li>
+            <li><a  href="{{ path('user_create') }}">Sign up</a></li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="page-scroll">
+                <a href="{{ path('user_list') }}">Users</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
