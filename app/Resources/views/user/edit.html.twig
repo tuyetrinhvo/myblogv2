@@ -41,9 +41,10 @@
         <button type="submit" class="btn btn-success pull-right">Modifier</button>
         {{ form_end(form) }}
 
-    </div>
-
-    <a href="{{ path('homepage') }}" class="btn btn-primary btn-xl">Retourner à l'accueil</a>
+        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('homepage') }}" class="btn btn-primary btn-xl">Retourner à la liste des utilisateurs</a>
+        {% endif %}
     </div>
 </section>
 {% endblock %}

@@ -3,18 +3,25 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * User
+ * Class User
+ *
+ * @category PHP_Class
+ * @package  AppBundle\Entity
+ * @author   trinhvo <ttvdep@gmail.com>
+ * @license  License Name
+ * @link     Link Name
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity(fields={"username"}, message="Un Utilisateur existe déjà avec ce nom")
  * @UniqueEntity(fields={"email"}, message="Cet email a été utilisé")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -55,7 +62,7 @@ class User
 
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Avatar", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @Assert\Valid()
      */
     private $avatar;
@@ -174,6 +181,16 @@ class User
      */
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * Get salt
+     *
+     * @return null|string
+     */
+    public function getSalt()
+    {
+        return null;
     }
 
     /**

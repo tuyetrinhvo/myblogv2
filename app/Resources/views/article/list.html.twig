@@ -41,21 +41,26 @@
         {% for article in articles %}
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="caption">
-                    <h4><a href="{{ path('article_edit', {'id' : article.id }) }}">{{ article.title }}</a></h4>
-                    <p>{{ article.content }}
+                    <h4><a href="{{ path('article_show', {'id' : article.id }) }}">{{ article.title }}</a></h4>
                     <p><em>Auteur : {{ article.author.username }}</em></p>
+                    <p>{{ article.content }}</p>
                 </div>
                 <div>
                     <form action="{{ path('article_delete', {'id' : article.id }) }}">
                         <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
                     </form>
                 </div>
+                <div>
+                    <form action="{{ path('article_edit', {'id' : article.id }) }}">
+                        <button class="btn btn-danger btn-sm pull-right">Modifier</button>
+                    </form>
+                </div>
             </div>
             <div class="alert alert-warning" role="alert">
-                Il n'y a pas encore de tâche enregistrée. <a href="{{ path('article_create') }}" class="btn btn-warning pull-right">Créer une tâche</a>
+                Il n'y a pas encore de l'article enregistré. <a href="{{ path('article_create') }}" class="btn btn-warning pull-right">Créer un article</a>
             </div>
         {% endfor %}
-        <a href="{{ path('homepage') }}" class="btn btn-primary btn-xl">Retourner à l'accueil</a>
+
         </div>
     </div>
 </section>
