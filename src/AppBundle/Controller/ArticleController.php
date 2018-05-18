@@ -52,6 +52,28 @@ class ArticleController extends Controller
     }
 
     /**
+     * Function showArticleAction
+     *
+     * @param Article    $article    Some argument description
+     * @param Request $request Some argument description
+     *
+     * @Route("/blog/articles/{id}", name="article_show")
+     * @Method({"GET"})
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function showAction($id)
+    {
+        return $this->render(
+            'article/show.html.twig', [
+                'articles' => $this->getDoctrine()
+                    ->getRepository('AppBundle:Article')
+                    ->find($id)
+            ]
+        );
+    }
+
+    /**
      * Function createArticleAction
      *
      * @param Request $request Some argument description

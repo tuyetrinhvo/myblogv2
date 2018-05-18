@@ -47,7 +47,7 @@
                 <tr>
                     <th>#</th>
                     <th>Nom d'utilisateur</th>
-                    <th>Adresse d'utilisateur</th>
+                    <th>Adresse d'email</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -58,14 +58,12 @@
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
                         <td>
-                            <a href="{{ path('user_edit', {'id' : user.id}) }}" class="btn btn-success btn-sm">Edit</a>
+                            <a href="{{ path('user_edit', {'id' : user.id}) }}" class="btn btn-success btn-sm">Modifier</a>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-
-            <a href="{{ path('homepage') }}" class="btn btn-primary btn-xl">Retourner à l'accueil</a>
 
         </div>
     {% endif %}

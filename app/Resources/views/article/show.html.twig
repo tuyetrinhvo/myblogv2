@@ -32,21 +32,36 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Créer Article</h2>
+                    <h2>Article</h2>
                     <hr class="star-primary">
                 </div>
             </div>
+
             <div class="row">
+                {% for article in articles %}
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="caption">
+                            <h3><a href="{{ path('article_edit', {'id' : article.id }) }}">{{ article.title }}</a></h3>
+                            <p><em>Auteur : {{ article.author.username }}</em></p>
+                            <p>{{ article.content }}</p>
 
-            {{ form_start(form, {'action' : path('article_create')}) }}
-                {{ form_widget(form) }}
+                        </div>
+                        <div>
+                            <form action="{{ path('article_delete', {'id' : article.id }) }}">
+                                <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                            </form>
+                        </div>
+                        <div>
+                            <form action="{{ path('article_edit', {'id' : article.id }) }}">
+                                <button class="btn btn-danger btn-sm pull-right">Modifier</button>
+                            </form>
+                        </div>
+                    </div>
+                    {# Commentaire!!! #}
+                {% endfor %}
 
-                <button type="submit" class="btn btn-success pull-right">Ajouter</button>
-            {{ form_end(form) }}
-
-            <a href="{{ path('article_list') }}" class="btn btn-primary btn-xl">Retourner à la liste des articles</a>
             </div>
         </div>
-
     </section>
+
 {% endblock %}
