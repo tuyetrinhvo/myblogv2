@@ -19,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class UserController
@@ -34,8 +35,11 @@ class UserController extends Controller
     /**
      * Function listAction
      *
-     * @Route("/users", name="user_list")
+     * @Route("/blog/users", name="user_list")
      * @Method({"GET"})
+     *
+     * @Security("is_granted('ROLE_ADMIN')")
+     *
      * @return          Response
      */
     public function listAction()
@@ -54,7 +58,7 @@ class UserController extends Controller
      *
      * @param Request $request Some argument description
      *
-     * @Route("/users/create", name="user_create")
+     * @Route("/blog/users/create", name="user_create")
      * @Method({"GET",         "POST"})
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
@@ -95,13 +99,23 @@ class UserController extends Controller
      * @param User    $user    Some argument description
      * @param Request $request Some argument description
      *
-     * @Route("/users/{id}/edit", name="user_edit")
+     * @Route("/blog/users/{id}/edit", name="user_edit")
      * @Method({"GET",            "POST"})
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editAction(User $user, Request $request)
     {
+        if ($user->getAuthor()->getUsername() !== $this->get('security.token_storage')->getToken()->getUser()->getUsername()) {
+
+            $this->addFlash(
+                'error',
+                'Vous ne pouvez pas modifier cet utilisateur car vous n\'êtes pas son créateur.'
+            );
+
+            return $this->redirectToRoute('article_list');
+        }
+
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -130,8 +144,10 @@ class UserController extends Controller
      *
      * @param User $user Some argument description
      *
-     * @Route("/users/{id}/delete", name="user_delete")
+     * @Route("/blog/users/{id}/delete", name="user_delete")
      * @Method({"GET",              "POST"})
+     *
+     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */

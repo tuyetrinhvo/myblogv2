@@ -73,16 +73,6 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-# Assetic Configuration
-assetic:
-   debug:             '%kernel.debug%'
-   use_controller:    '%kernel.debug%'
-   filters:
-       cssrewrite: ~
-       jsqueeze: ~
-       scssphp:
-         formatter: 'Leafo\ScssPhp\Formatter\Compressed'
-
 # FosUser Configuration
 fos_user:
     db_driver: orm # le type BDD à utiliser, on utilise l'ORM Doctrine

@@ -39,7 +39,8 @@ class AvatarType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('file', FileType::class, ['label' => false]);
+        $builder->add('file', FileType::class, ['label' => 'Taille Maximale de l\'avatar est 1M'])
+        ;
     }
 
     /**

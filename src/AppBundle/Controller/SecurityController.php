@@ -33,7 +33,7 @@ class SecurityController extends Controller
      *
      * @param Request $request Some argument description
      *
-     * @Route("/login", name="login")
+     * @Route("/blog/login", name="login")
      * @Method({"GET"})
      *
      * @return \Symfony\Component\HttpFoundation\Response

@@ -19,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class ArticleController
@@ -34,7 +35,7 @@ class ArticleController extends Controller
     /**
      * Function listArticleAction
      *
-     * @Route("/articles", name="article_list")
+     * @Route("/blog/articles", name="article_list")
      * @Method({"GET"})
      *
      * @return Response
@@ -55,8 +56,10 @@ class ArticleController extends Controller
      *
      * @param Request $request Some argument description
      *
-     * @Route("/articles/create", name="article_create")
+     * @Route("/blog/articles/create", name="article_create")
      * @Method({"GET",         "POST"})
+     *
+     * @Security("is_granted('ROLE_USER')")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
@@ -92,8 +95,10 @@ class ArticleController extends Controller
      * @param Article    $article    Some argument description
      * @param Request $request Some argument description
      *
-     * @Route("/articles/{id}/edit", name="article_edit")
+     * @Route("/blog/articles/{id}/edit", name="article_edit")
      * @Method({"GET",            "POST"})
+     *
+     * @Security("is_granted('ROLE_USER')")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
@@ -137,22 +142,23 @@ class ArticleController extends Controller
      *
      * @param Article $article Some argument description
      *
-     * @Route("/articles/{id}/delete", name="article_delete")
+     * @Route("/blog/articles/{id}/delete", name="article_delete")
      * @Method({"GET",              "POST"})
+     *
+     * @Security("is_granted('ROLE_USER')")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteArticleAction(Article $article)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        if ($article->getAuthor()->getUsername() !== $this->get('security.token_storage')->getToken()->getUser()->getUsername()) {
 
             $this->addFlash(
                 'error',
-                'Vous ne pouvez pas supprimer cet article car vous n\'êtes pas administrateur.'
+                'Vous ne pouvez pas supprimer cet article car vous n\'êtes pas son auteur.'
             );
 
             return $this->redirectToRoute('article_list');
-
         }
 
             $em = $this->getDoctrine()->getManager();

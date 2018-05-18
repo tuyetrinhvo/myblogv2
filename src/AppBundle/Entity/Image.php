@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Image
@@ -37,7 +39,8 @@ class Image
 
     /**
      * @var UploadedFile
-     * @Assert\Image(maxSize="200k", maxSizeMessage="La photo d'avatar ne doit pas dépasser 200k.")
+     *
+     * @Assert\Image(maxSize="2M", maxSizeMessage="L'Image ne doit pas dépasser 2M.")
      */
     private $file;
 
@@ -127,7 +130,6 @@ class Image
         return $this->file;
     }
 
-
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate
@@ -181,7 +183,7 @@ class Image
 
     public function getUploadDir()
     {
-        return 'uploads/avatars';
+        return 'uploads/images';
     }
 
     protected function getUploadRootDir()

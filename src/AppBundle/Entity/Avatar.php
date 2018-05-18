@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Avatar
@@ -37,7 +39,8 @@ class Avatar
 
     /**
      * @var UploadedFile
-     * @Assert\Image(maxSize="200k", maxSizeMessage="La photo d'avatar ne doit pas dépasser 200k.")
+     *
+     * @Assert\Image(maxSize="1M", maxSizeMessage="La photo d'avatar ne doit pas dépasser 1M.")
      */
     private $file;
 
