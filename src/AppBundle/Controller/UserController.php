@@ -99,7 +99,7 @@ class UserController extends Controller
      * @param User    $user    Some argument description
      * @param Request $request Some argument description
      *
-     * @Route("/blog/users/{id}/edit", name="user_edit")
+     * @Route("/blog/users/{username}/edit", name="user_edit")
      * @Method({"GET",            "POST"})
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
@@ -144,7 +144,7 @@ class UserController extends Controller
      *
      * @param User $user Some argument description
      *
-     * @Route("/blog/users/{id}/delete", name="user_delete")
+     * @Route("/blog/users/{username}/delete", name="user_delete")
      * @Method({"GET",              "POST"})
      *
      * @Security("is_granted('ROLE_ADMIN')")

@@ -13,34 +13,32 @@
                 <hr class="star-primary">
             </div>
         </div>
-
         <div class="row">
         {% for article in articles %}
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="caption">
-                    <h4><a href="{{ path('article_show', {'title' : article.title }) }}">{{ article.title }}</a></h4>
-                    <p><em>Auteur : {{ article.author.username }}</em></p>
-                    <p>{{ article.content }}</p>
-                </div>
-                <div>
-                    <form action="{{ path('article_delete', {'title' : article.title }) }}">
-                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
-                    </form>
-                </div>
-                <div>
-                    <form action="{{ path('article_edit', {'title' : article.title }) }}">
-                        <button class="btn btn-danger btn-sm pull-right">Modifier</button>
-                    </form>
-                </div>
+            <div class="col-sm-12 col-lg-12 col-md-12">
+                <h3>
+                    <a href="{{ path('article_show', {'title' : article.title }) }}">{{ article.title }}</a>
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <a href="{{ path('article_edit', {'title' : article.title }) }}"><img src="/assets/img/update.png" alt="update" class="bottom"/></a>
+                    <a href="{{ path('article_delete', {'title' : article.title }) }}"><img src="/assets/img/delete.png" alt="delete" class="bottom"/></a>
+                    {% endif %}
+                </h3>
+                <p class="author"><em>Ecrit le</em> {{ article.dateCreated|date('d-m-Y') }}.
+                 {% if article.dateUpdated is not null %}
+                  <em>Modifié le</em> {{ article.dateUpdated|date('d-m-Y') }}
+                  {% endif %}</p>
+
+                <p class="author"><em>Auteur : {{ article.author.username }}</em></p>
+
+                <p>{{ article.content }}</p>
+                <hr>
+            </div><!--/.col-sm-12 col-lg-12 col-md-12 -->
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Il n'y a aucun article enregistré. <a href="{{ path('article_create') }}" class="btn btn-warning pull-right">Créer un article</a>
             </div>
         {% endfor %}
-
-            {#<div class="alert alert-warning" role="alert">
-                Il n'y a pas encore de l'article enregistré. <a href="{{ path('article_create') }}" class="btn btn-warning pull-right">Créer un article</a>
-            </div>#}
-
-
-        </div>
+        </div><!--/.row -->
     </div>
 </section>
 

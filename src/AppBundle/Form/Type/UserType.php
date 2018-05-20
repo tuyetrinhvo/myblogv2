@@ -57,7 +57,7 @@ class UserType extends AbstractType
                 ]
             )
             ->add('email', EmailType::class, ['label' => 'Adresse email'])
-            ->add('avatar', AvatarType::class);
+            ->add('avatar', AvatarType::class,['required'=>false]);
     }
 
     /**
