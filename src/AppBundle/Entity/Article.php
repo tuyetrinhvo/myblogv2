@@ -26,7 +26,11 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=100)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min=4, minMessage="La titre doit faire au moins 4 caractères.",
+     *     max=100, maxMessage="Le titre ne doit pas dépasser 100 caractères.")
      */
     private $title;
 
@@ -34,13 +38,16 @@ class Article
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min=10, minMessage="Le contenu doit faire au moins 10 caractères.",
+     *     max=8000, maxMessage="Le contenu ne doit pas dépasser 8000 caractères.")
      */
     private $content;
 
     /**
-     * @var string
+     * Private variable author
      *
-     * @ORM\Column(name="author", type="string", length=255)
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */

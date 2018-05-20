@@ -18,18 +18,20 @@
                 {% for article in articles %}
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="caption">
-                            <h3><a href="{{ path('article_edit', {'id' : article.id }) }}">{{ article.title }}</a></h3>
-                            <p><em>Auteur : {{ article.author.username }}</em></p>
+                            <h3><a href="{{ path('article_edit', {'title' : article.title }) }}">{{ article.title }}</a></h3>
+                            <p><em>Auteur :
+                             {% if article.author.avatar is not null %} <img  alt="{{article.author.avatar.alt}}" src="uploads/avatars/'~article.author.avatar.extension~''" > {% endif %}
+                             {% if article.author.avatar is not null %}{{ article.author.username }}</em>{% endif %}</p>
                             <p>{{ article.content }}</p>
 
                         </div>
                         <div>
-                            <form action="{{ path('article_delete', {'id' : article.id }) }}">
+                            <form action="{{ path('article_delete', {'title' : article.title }) }}">
                                 <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
                             </form>
                         </div>
                         <div>
-                            <form action="{{ path('article_edit', {'id' : article.id }) }}">
+                            <form action="{{ path('article_edit', {'title' : article.title }) }}">
                                 <button class="btn btn-danger btn-sm pull-right">Modifier</button>
                             </form>
                         </div>
