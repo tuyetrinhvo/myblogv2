@@ -9,37 +9,88 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Article</h2>
+                    <h2>{{ article.title }}</h2> <br/>
+                    <p class="margin">{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <a href="{{ path('article_edit', {'title' : article.title }) }}"><img src="/assets/img/edit.png" alt="edit" title="Cliquez pour modifier"/></a>
+                        <a href="{{ path('article_delete', {'title' : article.title }) }}"><img src="/assets/img/bin-delete.png" alt="delete" title="Cliquez pour supprimer"/></a>
+                        {% endif %}
+                    </p>
                     <hr class="star-primary">
                 </div>
             </div>
-
             <div class="row">
-                {% for article in articles %}
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="caption">
-                            <h3><a href="{{ path('article_edit', {'title' : article.title }) }}">{{ article.title }}</a></h3>
-                            <p><em>Auteur :
-                             {% if article.author.avatar is not null %} <img  alt="{{article.author.avatar.alt}}" src="uploads/avatars/'~article.author.avatar.extension~''" > {% endif %}
-                             {% if article.author.avatar is not null %}{{ article.author.username }}</em>{% endif %}</p>
-                            <p>{{ article.content }}</p>
-
-                        </div>
-                        <div>
-                            <form action="{{ path('article_delete', {'title' : article.title }) }}">
-                                <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
-                            </form>
-                        </div>
-                        <div>
-                            <form action="{{ path('article_edit', {'title' : article.title }) }}">
-                                <button class="btn btn-danger btn-sm pull-right">Modifier</button>
-                            </form>
-                        </div>
-                    </div>
-                    {# Commentaire!!! #}
-                {% endfor %}
-
+                <div class="col-lg-12 text-center">
+                    <p class = "author">
+                        <em>
+                            Créé par
+                            {% if article.author.avatar is not null %}
+                                <img alt="{{article.author.avatar.alt}}" src="/uploads/avatars/{{ article.author.avatar.extension }}" >
+                            {% endif %}
+                            {% if article.author.avatar is not null %}
+                            {{ article.author.username }}
+                        </em>
+                        {% endif %}
+                        <em>,le </em> {{ article.dateCreated|date('d-m-Y') }}.
+                        {% if article.dateUpdated is not null %}
+                            <em>, modifié le </em> {{ article.dateUpdated|date('d-m-Y') }}
+                        {% endif %}
+                    </p>
+                    {% if article.image is not empty %}
+                    <figure>
+                        <img class="img-responsive img-centered" alt="{{article.image.alt}}" src="/uploads/images/{{ article.image.extension }}" >
+                    </figure>
+                    {% endif %}
+                </div>
             </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 col-md-12 top">
+                    <p>{{ article.content }}</p>
+                    <hr>
+                    <a href="{{ path('article_list') }}" class="btn btn-primary btn-xl">Retourner à la liste des articles</a>
+                </div>
+            </div>
+            <!-- Commentaires -->
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 col-md-12">
+                    <h3>Commentaires</h3>
+                    {% if Comments is not empty %}
+                        <ul class="">
+                            {% for comment in Comments %}
+                                <!-- Nested media object -->
+                                <li class="">
+                                    <div class="author">
+                                        {% if comment.author.avatar is not null %}
+                                            <img class="" alt="{{ comment.author.avatar.alt }}" src="/uploads/avatars/{{ comment.author.avatar.extension }}" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="">
+                                        <h4 class="media-heading text-primary">{{ comment.author.username }} <span class="pull-right small text-muted"><i> Le {{ comment.dateCreated|date ('d-m-Y')}}</i></span></h4>
+                                        <p>
+                                            {{ comment.content }}
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Aucun commentaire pour le moment.<br/>Soyez la première personne à écrire un commentaire sur cette figure.<br/>Pour le faire, identifiez-vous !</p>
+                    {% endif %}
+
+                    <!-- .navigation -->
+
+                    <!-- /.navigation -->
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <h4 class="mar-top-md">Rédiger un commentaire</h4>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                {{ form_start(form) }}
+                                <button type="submit" class="btn btn-success pull-right">Ajouter</button>
+                                {{ form_end(form) }}
+                            </div>
+                        </div><!-- /.row -->
+                        {% endif %}
+                    </div>
+                </div>
         </div>
     </section>
 

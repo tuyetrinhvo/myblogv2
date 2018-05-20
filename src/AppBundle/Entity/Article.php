@@ -5,12 +5,15 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Article
  *
  * @ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ArticleRepository")
+ * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(fields={"title"}, message="Un article existe déjà avec ce titre")
  */
 class Article
 {
@@ -26,7 +29,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=100)
+     * @ORM\Column(name="title", type="string", length=100, unique=true)
      * @Assert\NotBlank()
      * @Assert\Length(
      *     min=4, minMessage="La titre doit faire au moins 4 caractères.",
@@ -64,7 +67,7 @@ class Article
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_updated", type="datetime")
+     * @ORM\Column(name="date_updated", type="datetime", nullable=true)
      * @Assert\DateTime()
      */
     private $dateUpdated;
@@ -92,8 +95,15 @@ class Article
     public function __construct()
     {
         $this->dateCreated = new \DateTime();
-        $this->dateUpdated = new \DateTime();
         $this->comments = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updateDate()
+    {
+        $this->setDateUpdated(new \DateTime());
     }
 
     /**
@@ -185,7 +195,7 @@ class Article
      *
      * @return Article
      */
-    public function setDateCreated($dateCreated)
+    public function setDateCreated(\DateTime $dateCreated)
     {
         $this->dateCreated = $dateCreated;
 
@@ -209,7 +219,7 @@ class Article
      *
      * @return Article
      */
-    public function setDateUpdated($dateUpdated)
+    public function setDateUpdated(\DateTime $dateUpdated = null)
     {
         $this->dateUpdated = $dateUpdated;
 
@@ -269,7 +279,7 @@ class Article
      *
      * @return Article
      */
-    public function setImage(\AppBundle\Entity\Image $image)
+    public function setImage(\AppBundle\Entity\Image $image = null)
     {
         $this->image = $image;
 

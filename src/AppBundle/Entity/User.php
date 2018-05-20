@@ -200,7 +200,7 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setAvatar(\AppBundle\Entity\Avatar $avatar)
+    public function setAvatar(\AppBundle\Entity\Avatar $avatar = null)
     {
         $this->avatar = $avatar;
 

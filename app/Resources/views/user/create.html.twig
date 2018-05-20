@@ -22,7 +22,7 @@
             {{ form_end(form) }}
         </div>
         {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('homepage') }}" class="btn btn-primary btn-xl">Retourner à la liste des utilisateurs</a>
+        <a href="{{ path('user_list') }}" class="btn btn-primary btn-xl">Retourner à la liste des utilisateurs</a>
         {% endif %}
     </div>
 </section>
