@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -24,21 +25,17 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="string", length=255)
+     * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min=10, minMessage="Le commentaire doit faire au moins 10 caractères.",
+     *     max=2000, maxMessage="Le commentaire ne doit pas dépasser 2000 caractères.")
      */
     private $content;
 
     /**
-     * @var string
+     * Private variable author
      *
-     * @ORM\Column(name="author", type="string", length=255)
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
@@ -83,30 +80,6 @@ class Comment
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return Comment
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
     }
 
     /**

@@ -15,7 +15,7 @@
         </div>
         <div class="row">
 
-        {{ form_start(form, {'action' : path('task_edit', { 'id' : task.id })}) }}
+        {{ form_start(form, {'action' : path('article_edit', { 'title' : task.title })}) }}
             {{ form_widget(form) }}
 
             <button type="submit" class="btn btn-success pull-right">Modifier</button>
