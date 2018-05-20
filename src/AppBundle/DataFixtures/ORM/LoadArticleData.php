@@ -68,33 +68,33 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
         $comment2->setAuthor($this->getReference('myadmin'));
 
         $article1 = new Article();
-        $article1->setTitle("Article crée par auteur User");
+        $article1->setTitle("Premier Article crée par auteur User");
         $article1->setContent("Premier Article ajoutée par auteur User");
         $article1->setImage($image);
         $article1->addComment($comment2);
         $article1->setAuthor($this->getReference('myuser'));
 
         $article2 = new Article();
-        $article2->setTitle("Article crée par auteur User");
+        $article2->setTitle("Deuxième Article crée par auteur User");
         $article2->setContent("Deuxième Article ajoutée par auteur User");
         $article2->setImage($image1);
         $article2->setAuthor($this->getReference('myuser'));
 
         $article3 = new Article();
-        $article3->setTitle("Article crée par auteur User");
+        $article3->setTitle("Troisième Article crée par auteur User");
         $article3->setContent("Troisième Article ajoutée par auteur User");
         $article3->setImage($image2);
         $article3->setAuthor($this->getReference('myuser'));
 
         $article4 = new Article();
-        $article4->setTitle("Article crée par auteur Admin");
+        $article4->setTitle("Quatrième Article crée par auteur Admin");
         $article4->setContent("Quatrième Article ajoutée par auteur Admin");
         $article4->setImage($image3);
         $article4->addComment($comment1);
         $article4->setAuthor($this->getReference('myadmin'));
 
         $article5 = new Article();
-        $article5->setTitle("Article crée par auteur User");
+        $article5->setTitle("Cinquièmre Article crée par auteur User");
         $article5->setContent("Cinquièmre Article ajoutée par auteur User");
         $article5->setImage($image4);
         $article5->setAuthor($this->getReference('myuser'));

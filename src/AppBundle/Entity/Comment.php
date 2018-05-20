@@ -49,13 +49,6 @@ class Comment
     private $dateCreated;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_updated", type="datetime")
-     */
-    private $dateUpdated;
-
-    /**
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Article", inversedBy="comments")
      * 
@@ -152,30 +145,6 @@ class Comment
     public function getDateCreated()
     {
         return $this->dateCreated;
-    }
-
-    /**
-     * Set dateUpdated
-     *
-     * @param \DateTime $dateUpdated
-     *
-     * @return Comment
-     */
-    public function setDateUpdated($dateUpdated)
-    {
-        $this->dateUpdated = $dateUpdated;
-
-        return $this;
-    }
-
-    /**
-     * Get dateUpdated
-     *
-     * @return \DateTime
-     */
-    public function getDateUpdated()
-    {
-        return $this->dateUpdated;
     }
 
     /**

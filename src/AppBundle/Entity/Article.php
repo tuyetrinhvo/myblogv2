@@ -67,7 +67,7 @@ class Article
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_updated", type="datetime")
+     * @ORM\Column(name="date_updated", type="datetime", nullable=true)
      * @Assert\DateTime()
      */
     private $dateUpdated;
@@ -195,7 +195,7 @@ class Article
      *
      * @return Article
      */
-    public function setDateCreated($dateCreated)
+    public function setDateCreated(\DateTime $dateCreated)
     {
         $this->dateCreated = $dateCreated;
 
@@ -219,7 +219,7 @@ class Article
      *
      * @return Article
      */
-    public function setDateUpdated($dateUpdated)
+    public function setDateUpdated(\DateTime $dateUpdated = null)
     {
         $this->dateUpdated = $dateUpdated;
 
