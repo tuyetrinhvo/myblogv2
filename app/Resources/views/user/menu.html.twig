@@ -3,8 +3,8 @@
         <li class="hidden">
             <a href="#page-top"></a>
         </li>
-        <li class="active">
-            <a href="/">Home</a>
+        <li class="page-scroll">
+            <a href="{{ path('article_list') }}">Home</a>
         </li>
         <li class="page-scroll">
             <a href="#portfolio">User</a>
@@ -15,13 +15,16 @@
         <li class="page-scroll">
             <a href="#contact">Contact</a>
         </li>
-        <li class="page-scroll">
-            <a href="{{ path('article_list') }}">Post</a>
-        </li>
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <li><a  href="{{ path('article_create') }}">Create Post</a></li>
             <li><a  href="{{ path('logout') }}">Logout</a></li>
         {% else %}
             <li><a  href="{{ path('login') }}">Login</a></li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="page-scroll">
+                <a href="{{ path('user_list') }}">User</a>
+            </li>
         {% endif %}
     </ul>
 </div>

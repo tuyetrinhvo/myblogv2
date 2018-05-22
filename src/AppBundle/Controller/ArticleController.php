@@ -69,7 +69,7 @@ class ArticleController extends Controller
      * @param Request $request Some argument description
      *
      * @Route("/blog/posts/{title}", name="article_show")
-     * @Method({"GET"})
+     *  @Method({"GET",         "POST"})
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */

@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="avatar")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AvatarRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
  */
 class Avatar
 {

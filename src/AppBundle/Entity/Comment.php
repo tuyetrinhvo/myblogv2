@@ -28,7 +28,7 @@ class Comment
      * @ORM\Column(name="content", type="text")
      * @Assert\NotBlank()
      * @Assert\Length(
-     *     min=10, minMessage="Le commentaire doit faire au moins 10 caractères.",
+     *     min=4, minMessage="Le commentaire doit faire au moins 4 caractères.",
      *     max=2000, maxMessage="Le commentaire ne doit pas dépasser 2000 caractères.")
      */
     private $content;
@@ -49,9 +49,9 @@ class Comment
     private $dateCreated;
 
     /**
+     * Private variable article
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Article", inversedBy="comments")
-     * 
      */
     private $article;
 

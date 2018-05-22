@@ -83,7 +83,7 @@ class UserController extends Controller
 
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('article_list');
         }
 
         return $this->render(
@@ -106,7 +106,9 @@ class UserController extends Controller
      */
     public function editAction(User $user, Request $request)
     {
-        if ($user->getAuthor()->getUsername() !== $this->get('security.token_storage')->getToken()->getUser()->getUsername()) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+
+            if ($user->getUsername() !== $this->get('security.token_storage')->getToken()->getUsername()) {
 
             $this->addFlash(
                 'error',
@@ -114,7 +116,7 @@ class UserController extends Controller
             );
 
             return $this->redirectToRoute('article_list');
-        }
+        }}
 
         $form = $this->createForm(UserType::class, $user);
 
@@ -153,17 +155,6 @@ class UserController extends Controller
      */
     public function deleteArticleAction(User $user)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-
-            $this->addFlash(
-                'error',
-                'Vous ne pouvez pas supprimer cet utilisateur car vous n\'êtes pas administrateur.'
-            );
-
-            return $this->redirectToRoute('user_list');
-
-        }
-
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();

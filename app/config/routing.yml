@@ -3,7 +3,7 @@ app:
     type:     annotation
 
 login_check:
-    path: /blog/login_check
+    path: login_check
 
 logout:
-    path: /blog/logout
+    path: logout

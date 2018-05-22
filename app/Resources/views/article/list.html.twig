@@ -8,6 +8,20 @@
 <section id="portfolio">
     <div class="container">
         <div class="row">
+            <div class="col-md-4 offset-md-4">
+                {% for flash_message in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success" role="alert">
+                        <strong>Superbe !</strong> {{ flash_message }}
+                    </div>
+                {% endfor %}
+                {% for flash_message in app.session.flashBag.get('error') %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Oops !</strong> {{ flash_message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-12 text-center">
                 <h2>Liste des Articles</h2>
                 <hr class="star-primary">
@@ -19,8 +33,8 @@
                 <h3>
                     <a href="{{ path('article_show', {'title' : article.title }) }}">{{ article.title }}</a>
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <a href="{{ path('article_edit', {'title' : article.title }) }}"><img src="/assets/img/update.png" alt="update" class="bottom"/></a>
-                    <a href="{{ path('article_delete', {'title' : article.title }) }}"><img src="/assets/img/delete.png" alt="delete" class="bottom"/></a>
+                    <a href="{{ path('article_edit', {'title' : article.title }) }}"><img src="/assets/img/update.png" alt="update" class="bottom" title="Cliquez pour modifier article"/></a>
+                    <a href="{{ path('article_delete', {'title' : article.title }) }}" onclick="return confirm('Vous voulez supprimer cet article ?')"><img src="/assets/img/delete.png" alt="delete" class="bottom" title="Cliquez pour supprimer article"/></a>
                     {% endif %}
                 </h3>
                 <p class="author"><em>Ecrit le</em> {{ article.dateCreated|date('d-m-Y') }}.
@@ -28,7 +42,7 @@
                   <em>Modifié le</em> {{ article.dateUpdated|date('d-m-Y') }}
                   {% endif %}</p>
 
-                <p class="author"><em>Auteur : {{ article.author.username }}</em></p>
+                <p class="author"><em>Auteur : <a href="{{ path('user_edit', {'username' : article.author.username}) }}" title="Cliquez pour modifier utilisateur">{{ article.author.username }}</a></em></p>
 
                 <p>{{ article.content }}</p>
                 <hr>
