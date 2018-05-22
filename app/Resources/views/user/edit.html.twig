@@ -14,7 +14,7 @@
             </div>
         </div>
     <div class="row">
-        {{ form_start(form, {'action' : path('user_edit', {'username' : user.username})}) }}
+        {{ form_start(form, {'action' : path('user_edit', {'slug' : user.slug})}) }}
         {{ form_widget(form) }}
 
         <button type="submit" class="btn btn-success pull-right">Modifier</button>
@@ -22,7 +22,7 @@
 
         </div>
         {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('homepage') }}" class="btn btn-primary btn-xl">Retourner à la liste des utilisateurs</a>
+        <a href="{{ path('user_list') }}" class="btn btn-primary btn-xl">Retourner à la liste des utilisateurs</a>
         {% endif %}
     </div>
 </section>

@@ -54,9 +54,9 @@ class ArticleController extends Controller
 
         $articles = $paginator->paginate(
             $query,
-            $request->query->getInt('page',1),
-            $request->query->getInt('limit',9)
-            );
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 10)
+        );
 
         return $this->render(
             'article/list.html.twig', ['articles' => $articles]);
@@ -65,40 +65,40 @@ class ArticleController extends Controller
     /**
      * Function showArticleAction
      *
-     * @param Article    $article    Some argument description
+     * @param Article $article Some argument description
      * @param Request $request Some argument description
      *
-     * @Route("/blog/posts/{title}", name="article_show")
-     *  @Method({"GET",         "POST"})
+     * @Route("/blog/posts/{slug}", name="article_show")
+     * @Method({"GET",         "POST"})
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function showAction(Request $request, $title)
+    public function showAction(Request $request, $slug)
     {
-        $article= $this
+        $article = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('AppBundle:Article')
-            ->findOneBy(['title' => $title]);
+            ->findOneBy(['slug' => $slug]);
 
         if (null === $article) {
-            throw new NotFoundHttpException("L'article avec le titre ".$title." n'existe pas.");
+            throw new NotFoundHttpException("L'article avec ce titre n'existe pas.");
         }
         $query = $article->getComments();
 
         $paginator = $this->get('knp_paginator');
 
-        $Comments = $paginator->paginate(
+        $comments = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', 9)
+            $request->query->getInt('limit', 10)
         );
 
         $form = $this->createForm(CommentType::class);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $postComment = $form->getData();
             $postComment->setAuthor($this->getUser());
             $postComment->setArticle($article);
@@ -109,7 +109,7 @@ class ArticleController extends Controller
 
             $this->addFlash('success', 'Le Commentaire a été bien posté !');
             return $this->redirectToRoute('article_show', [
-                'title' => $title]
+                    'slug' => $slug]
             );
         }
 
@@ -117,7 +117,7 @@ class ArticleController extends Controller
             'article/show.html.twig', [
                 'article' => $article,
                 'form' => $form->createView(),
-                'Comments' => $Comments,
+                'comments' => $comments,
             ]
         );
     }
@@ -163,10 +163,10 @@ class ArticleController extends Controller
     /**
      * Function editArticleAction
      *
-     * @param Article    $article    Some argument description
+     * @param Article $article Some argument description
      * @param Request $request Some argument description
      *
-     * @Route("/blog/posts/{title}/edit", name="article_edit")
+     * @Route("/blog/posts/{slug}/edit", name="article_edit")
      * @Method({"GET",            "POST"})
      *
      * @Security("is_granted('ROLE_USER')")
@@ -175,15 +175,9 @@ class ArticleController extends Controller
      */
     public function editArticleAction(Article $article, Request $request)
     {
-        if ($article->getAuthor()->getUsername() !== $this->get('security.token_storage')->getToken()->getUser()->getUsername()) {
-
-            $this->addFlash(
-                'error',
-                'Vous ne pouvez pas modifier cet article car vous n\'êtes pas son auteur.'
-            );
-
-            return $this->redirectToRoute('article_list');
-        }
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')
+            || ($article->getAuthor()->getUsername() === $this
+                    ->get('security.token_storage')->getToken()->getUser()->getUsername())) {
 
             $form = $this->createForm(ArticleType::class, $article);
 
@@ -197,14 +191,23 @@ class ArticleController extends Controller
                 return $this->redirectToRoute('article_list');
             }
 
-            return $this->render(
-                'article/edit.html.twig',
-                [
-                    'form' => $form->createView(),
-                    'article' => $article,
-                ]
+        } else {
+
+            $this->addFlash(
+                'error',
+                'Vous ne pouvez pas modifier cet article car vous n\'êtes pas son auteur.'
             );
 
+            return $this->redirectToRoute('article_list');
+        }
+
+        return $this->render(
+            'article/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'article' => $article,
+            ]
+        );
     }
 
 
@@ -213,7 +216,7 @@ class ArticleController extends Controller
      *
      * @param Article $article Some argument description
      *
-     * @Route("/blog/posts/{title}/delete", name="article_delete")
+     * @Route("/blog/posts/{slug}/delete", name="article_delete")
      * @Method({"GET",              "POST"})
      *
      * @Security("is_granted('ROLE_USER')")
@@ -222,15 +225,9 @@ class ArticleController extends Controller
      */
     public function deleteArticleAction(Article $article)
     {
-        if ($article->getAuthor()->getUsername() !== $this->get('security.token_storage')->getToken()->getUser()->getUsername()) {
-
-            $this->addFlash(
-                'error',
-                'Vous ne pouvez pas supprimer cet article car vous n\'êtes pas son auteur.'
-            );
-
-            return $this->redirectToRoute('article_list');
-        }
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')
+            || ($article->getAuthor()->getUsername() === $this
+                    ->get('security.token_storage')->getToken()->getUser()->getUsername())) {
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($article);
@@ -238,6 +235,13 @@ class ArticleController extends Controller
 
             $this->addFlash('success', 'L\'article a bien été supprimé.');
 
+            } else{
+
+            $this->addFlash(
+                'error',
+                'Vous ne pouvez pas supprimer cet article car vous n\'êtes pas son auteur.'
+            );
+        }
             return $this->redirectToRoute('article_list');
 
     }

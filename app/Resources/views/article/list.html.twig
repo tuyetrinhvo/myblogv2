@@ -31,10 +31,10 @@
         {% for article in articles %}
             <div class="col-sm-12 col-lg-12 col-md-12">
                 <h3>
-                    <a href="{{ path('article_show', {'title' : article.title }) }}">{{ article.title }}</a>
+                    <a href="{{ path('article_show', {'slug' : article.slug }) }}">{{ article.title }}</a>
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <a href="{{ path('article_edit', {'title' : article.title }) }}"><img src="/assets/img/update.png" alt="update" class="bottom" title="Cliquez pour modifier article"/></a>
-                    <a href="{{ path('article_delete', {'title' : article.title }) }}" onclick="return confirm('Vous voulez supprimer cet article ?')"><img src="/assets/img/delete.png" alt="delete" class="bottom" title="Cliquez pour supprimer article"/></a>
+                    <a href="{{ path('article_edit', {'slug' : article.slug }) }}"><img src="/assets/img/update.png" alt="update" class="bottom" title="Cliquez pour modifier article"/></a>
+                    <a href="{{ path('article_delete', {'slug' : article.slug }) }}" onclick="return confirm('Vous voulez supprimer cet article ?')"><img src="/assets/img/delete.png" alt="delete" class="bottom" title="Cliquez pour supprimer article"/></a>
                     {% endif %}
                 </h3>
                 <p class="author"><em>Ecrit le</em> {{ article.dateCreated|date('d-m-Y') }}.
@@ -42,7 +42,7 @@
                   <em>Modifié le</em> {{ article.dateUpdated|date('d-m-Y') }}
                   {% endif %}</p>
 
-                <p class="author"><em>Auteur : <a href="{{ path('user_edit', {'username' : article.author.username}) }}" title="Cliquez pour modifier utilisateur">{{ article.author.username }}</a></em></p>
+                <p class="author"><em>Auteur : <a href="{{ path('user_edit', {'slug' : article.author.slug}) }}" title="Cliquez pour modifier utilisateur">{{ article.author.username }}</a></em></p>
 
                 <p>{{ article.content }}</p>
                 <hr>
@@ -53,6 +53,11 @@
             </div>
         {% endfor %}
         </div><!--/.row -->
+        <div class="row">
+            <div class="navigation col-md-12 col-sm-12 text-center">
+                {{ knp_pagination_render(articles) }}
+            </div>
+        </div>
     </div>
 </section>
 

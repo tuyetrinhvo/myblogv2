@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Article
@@ -51,7 +52,7 @@ class Article
     /**
      * Private variable author
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $author;
@@ -86,6 +87,14 @@ class Article
      * @Assert\Valid()
      */
     private $image;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=100, unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
 
     /**
      * Construct
@@ -294,5 +303,29 @@ class Article
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Article
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
