@@ -99,24 +99,18 @@ class UserController extends Controller
      * @param User    $user    Some argument description
      * @param Request $request Some argument description
      *
-     * @Route("/blog/users/{username}/edit", name="user_edit")
+     * @Route("/blog/users/{slug}/edit", name="user_edit")
      * @Method({"GET",            "POST"})
+     *
+     * @Security("is_granted('ROLE_USER')")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editAction(User $user, Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') ||
+            ($user->getUsername() === $this->get('security.token_storage')->getToken()->getUsername())) {
 
-            if ($user->getUsername() !== $this->get('security.token_storage')->getToken()->getUsername()) {
-
-            $this->addFlash(
-                'error',
-                'Vous ne pouvez pas modifier cet utilisateur car vous n\'êtes pas son créateur.'
-            );
-
-            return $this->redirectToRoute('article_list');
-        }}
 
         $form = $this->createForm(UserType::class, $user);
 
@@ -131,7 +125,15 @@ class UserController extends Controller
 
             $this->addFlash('success', "L'utilisateur a bien été modifié");
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('article_list'); }
+
+         } else{
+
+            $this->addFlash(
+                'error',
+                'Vous ne pouvez pas modifier cet utilisateur car vous n\'êtes pas son créateur.');
+
+            return $this->redirectToRoute('article_list');
         }
 
         return $this->render(
@@ -139,6 +141,7 @@ class UserController extends Controller
                 'form' => $form->createView(), 'user' => $user
             ]
         );
+
     }
 
     /**
@@ -146,7 +149,7 @@ class UserController extends Controller
      *
      * @param User $user Some argument description
      *
-     * @Route("/blog/users/{username}/delete", name="user_delete")
+     * @Route("/blog/users/{slug}/delete", name="user_delete")
      * @Method({"GET",              "POST"})
      *
      * @Security("is_granted('ROLE_ADMIN')")

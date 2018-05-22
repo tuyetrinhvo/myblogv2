@@ -42,10 +42,10 @@
                 {% for user in users %}
                     <tr>
                         <th scope="row">{{ loop.index }}</th>
-                        <td><a href="{{ path('user_edit', {'username' : user.username}) }}" title="Cliquez pour modifier utilisateur">{{ user.username }}</a></td>
+                        <td><a href="{{ path('user_edit', {'slug' : user.slug}) }}" title="Cliquez pour modifier utilisateur">{{ user.slug }}</a></td>
                         <td>{{ user.email }}</td>
                         <td>
-                            <a href="{{ path('user_delete', {'username' : user.username}) }}" onclick="return confirm('Vous voulez supprimer cet utilisateur ?')" class="btn btn-success btn-sm">Supprimer</a>
+                            <a href="{{ path('user_delete', {'slug' : user.slug}) }}" onclick="return confirm('Vous voulez supprimer cet utilisateur ?')" class="btn btn-success btn-sm">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}

@@ -36,7 +36,7 @@ class Comment
     /**
      * Private variable author
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $author;

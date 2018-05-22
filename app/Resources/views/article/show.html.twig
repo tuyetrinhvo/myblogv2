@@ -20,8 +20,8 @@
                 <div class="col-lg-12 text-center">
                     <h2>{{ article.title }}</h2> <br/>
                     <p class="margin text-center">{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <a href="{{ path('article_edit', {'title' : article.title }) }}"><img src="/assets/img/edit.png" alt="edit" title="Cliquez pour modifier article"/></a>
-                        <a href="{{ path('article_delete', {'title' : article.title }) }}" onclick="return confirm('Vous voulez supprimer cet article ?')"><img src="/assets/img/bin-delete.png" alt="delete" title="Cliquez pour supprimer article"/></a>
+                        <a href="{{ path('article_edit', {'slug' : article.slug }) }}"><img src="/assets/img/edit.png" alt="edit" title="Cliquez pour modifier article"/></a>
+                        <a href="{{ path('article_delete', {'slug' : article.slug }) }}" onclick="return confirm('Vous voulez supprimer cet article ?')"><img src="/assets/img/bin-delete.png" alt="delete" title="Cliquez pour supprimer article"/></a>
                         {% endif %}
                     </p>
                     <hr class="star-primary">
@@ -33,10 +33,10 @@
                         <em>
                             Créé par
                             {% if article.author.avatar is not null %}
-                                <a href="{{ path('user_edit', {'username' : article.author.username}) }}" title="Cliquez pour modifier utilisateur"><img alt="{{article.author.avatar.alt}}" src="/uploads/avatars/{{ article.author.avatar.extension }}" ></a>
+                                <a href="{{ path('user_edit', {'slug' : article.author.slug}) }}" title="Cliquez pour modifier utilisateur"><img alt="{{article.author.avatar.alt}}" src="/uploads/avatars/{{ article.author.avatar.extension }}" ></a>
                             {% endif %}
                             {% if article.author.avatar is not null %}
-                            <a href="{{ path('user_edit', {'username' : article.author.username}) }}" title="Cliquez pour modifier utilisateur">{{ article.author.username }}</a>
+                            <a href="{{ path('user_edit', {'slug' : article.author.slug}) }}" title="Cliquez pour modifier utilisateur">{{ article.author.username }}</a>
                         </em>
                             {% endif %}
                         {% if article.dateUpdated is not null %}
@@ -63,13 +63,13 @@
             <div class="row">
                 <div class="col-xs-10 col-sm-11 col-lg-11 col-md-11 comment">
                     <h3>Commentaires</h3>
-                    {% if Comments is not empty %}
-                        {% for comment in Comments %}
+                    {% if comments is not empty %}
+                        {% for comment in comments %}
                          <div class="author">
                             <h4>
                             {% if comment.author.avatar is not null %}
-                                <a href="{{ path('user_edit', {'username' : comment.author.username}) }}" title="Cliquez pour modifier utilisateur"><img class="" alt="{{ comment.author.avatar.alt }}" src="/uploads/avatars/{{ comment.author.avatar.extension }}" /></a>
-                                <a href="{{ path('user_edit', {'username' : comment.author.username}) }}" title="Cliquez pour modifier utilisateur">{{ comment.author.username }}</a>
+                                <a href="{{ path('user_edit', {'slug' : comment.author.slug}) }}" title="Cliquez pour modifier utilisateur"><img class="" alt="{{ comment.author.avatar.alt }}" src="/uploads/avatars/{{ comment.author.avatar.extension }}" /></a>
+                                <a href="{{ path('user_edit', {'slug' : comment.author.slug}) }}" title="Cliquez pour modifier utilisateur">{{ comment.author.username }}</a>
                              {% endif %}
                             </h4>
                             <p class="small"><em><strong>Le {{ comment.dateCreated|date('d-m-Y') }}</strong></em>.
@@ -77,6 +77,13 @@
                             </p>
                          </div>
                          <hr>
+                         <!-- .navigation -->
+                          <div class="row">
+                            <div class="navigation col-md-12 col-sm-12 text-center">
+                                    {{ knp_pagination_render(comments) }}
+                            </div>
+                          </div>
+                            <!-- /.navigation -->
                          {% endfor %}
                     {% else %}
                         <p>Aucun commentaire pour le moment.<br/>Soyez la première personne à écrire un commentaire sur cet article.<br/>
@@ -87,9 +94,7 @@
                         </p>
                     {% endif %}
 
-                    <!-- .navigation -->
 
-                    <!-- /.navigation -->
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <h4 class="top">Rédiger un commentaire</h4>
                         <div class="row">
