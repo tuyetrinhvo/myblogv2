@@ -52,7 +52,7 @@ class Article
     /**
      * Private variable author
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $author;

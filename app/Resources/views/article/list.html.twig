@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="row">
-        {% for article in articles %}
+        {% for article in articles |reverse(true) %}
             <div class="col-sm-12 col-lg-12 col-md-12">
                 <h3>
                     <a href="{{ path('article_show', {'slug' : article.slug }) }}">{{ article.title }}</a>
