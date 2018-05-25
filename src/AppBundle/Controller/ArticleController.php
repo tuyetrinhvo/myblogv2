@@ -65,7 +65,7 @@ class ArticleController extends Controller
     /**
      * Function showArticleAction
      *
-     * @param Article $article Some argument description
+     * @param Article $slug Some argument description
      * @param Request $request Some argument description
      *
      * @Route("/blog/posts/{slug}", name="article_show")

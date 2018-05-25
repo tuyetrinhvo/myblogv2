@@ -83,7 +83,7 @@ class UserController extends Controller
 
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
-            return $this->redirectToRoute('article_list');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render(
