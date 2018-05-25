@@ -4,23 +4,23 @@
             <a href="#page-top"></a>
         </li>
         <li class="page-scroll">
-            <a href="{{ path('article_list') }}">Home</a>
+            <a href="{{ path('article_list') }}">Blog</a>
         </li>
         <li class="page-scroll">
-            <a href="#portfolio">Posts</a>
+            <a href="#portfolio">Article</a>
         </li>
         <li class="page-scroll">
-            <a href="#about">About</a>
+            <a href="#about">A propos de</a>
         </li>
         <li>
-            <a href="{{ path('contact') }}">Contact</a>
+            <a href="{{ path('contact') }}">Contacter</a>
         </li>
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <li><a  href="{{ path('article_create') }}">Create Post</a></li>
-            <li><a  href="{{ path('logout') }}">Logout</a></li>
+            <li><a  href="{{ path('article_create') }}">Créer Article</a></li>
+            <li><a  href="{{ path('logout') }}">Déconnecter</a></li>
         {% else %}
-            <li><a  href="{{ path('login') }}">Login</a></li>
-            <li><a  href="{{ path('user_create') }}">Sign up</a></li>
+            <li><a  href="{{ path('login') }}">Se connecter</a></li>
+            <li><a  href="{{ path('user_create') }}">S'inscrire</a></li>
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
             <li>

@@ -8,22 +8,25 @@
 <section id="portfolio">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center">
+            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
                 <h2>Modifier Utilisateur</h2>
                 <hr class="star-primary">
             </div>
         </div>
-    <div class="row">
-        {{ form_start(form, {'action' : path('user_edit', {'slug' : user.slug})}) }}
-        {{ form_widget(form) }}
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {{ form_start(form, {'action' : path('user_edit', {'slug' : user.slug})}) }}
+            {{ form_widget(form) }}
 
-        <button type="submit" class="btn btn-success pull-right">Modifier</button>
-        {{ form_end(form) }}
-
+            <button type="submit" class="btn btn-success pull-right">Modifier</button>
+            {{ form_end(form) }}
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('user_list') }}" class="btn btn-primary btn-xl">Retourner à la liste des utilisateurs</a>
+            {% endif %}
+            </div>
         </div>
-        {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('user_list') }}" class="btn btn-primary btn-xl">Retourner à la liste des utilisateurs</a>
-        {% endif %}
     </div>
 </section>
 {% endblock %}
