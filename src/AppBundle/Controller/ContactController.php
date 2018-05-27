@@ -42,27 +42,34 @@ class ContactController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function contactAction(Request $request)
+    public function contactAction(Request $request, \Swift_Mailer $mailer)
     {
         $form = $this->createForm(ContactType::class, null);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post = $request->request->get('form');
+            $data = $form->getData();
 
             $mail = \Swift_Message::newInstance()
                 ->setSubject('Message depuis mon blog')
-                ->setFrom('ttvdep@gmail.com')
+                ->setFrom('noreply@ttvo.fr')
                 ->setTo('tuyetrinhvo@gmail.com')
-                ->setBody('Contenu du message :' . $post['message'].'<br/>ContactMail :'.$post['email'])
+                ->setBody('Contenu du message : ' . $data['message'].'<br/>Message envoyé par : '.$data['nom'].'<br/> Son adresse email : '.$data['email'])
+                ->setContentType('text/html')
             ;
 
-            $this->get('swiftmailer.mailer')->send($mail);
+            if ($mailer->send($mail)){
 
-            $this->addFlash('success', 'Le message a été bien été envoyé.');
+            $this->addFlash('success', 'Le message a été bien envoyé.');
 
             return $this->redirectToRoute('contact');
+            }
+
+            $this->addFlash('error', 'Le message n\'a pas été envoyé.');
+
+            return $this->redirectToRoute('contact');
+
         }
 
         return $this->render(

@@ -67,10 +67,11 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
+    transport: mail
     host:      "%mailer_host%"
     encryption: ssl
     port:      465
+    auth_mode: login
     delivery_address: ['tuyetrinhvo@gmail.com']
     username:  "%mailer_user%"
     password:  "%mailer_password%"
@@ -83,8 +84,8 @@ fos_user:
     firewall_name: main
     user_class: AppBundle\Entity\User
     from_email:
-        address: me@mywebsite.com
-        sender_name: me
+        address: noreply@ttvo.fr
+        sender_name: tuyetrinhvo
     registration:
         form:
             type: AppBundle\Form\Type\RegistrationType
