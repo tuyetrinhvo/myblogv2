@@ -35,15 +35,19 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Article
 {
     /**
+     * Private variable Id
+     *
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id",               type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
+     * Private variable Title
+     *
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=100, unique=true)
@@ -55,6 +59,8 @@ class Article
     private $title;
 
     /**
+     * Private variable Content
+     *
      * @var string
      *
      * @ORM\Column(name="content", type="text")
@@ -74,6 +80,8 @@ class Article
     private $author;
 
     /**
+     * Private variable dateCreated
+     *
      * @var \DateTime
      *
      * @ORM\Column(name="date_created", type="datetime")
@@ -82,6 +90,8 @@ class Article
     private $dateCreated;
 
     /**
+     * Private variable dateUpdated
+     *
      * @var \DateTime
      *
      * @ORM\Column(name="date_updated", type="datetime", nullable=true)
@@ -90,6 +100,8 @@ class Article
     private $dateUpdated;
 
     /**
+     * Private variable Comments
+     *
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="article", cascade={"persist", "remove"})
@@ -98,6 +110,8 @@ class Article
     private $comments;
 
     /**
+     * Private variable Images
+     *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      * @Assert\Valid()
@@ -105,9 +119,11 @@ class Article
     private $image;
 
     /**
+     * Private variable Slug
+     *
      * @var string
      *
-     * @ORM\Column(name="slug", type="string", length=100, unique=true)
+     * @ORM\Column(name="slug",      type="string", length=100, unique=true)
      * @Gedmo\Slug(fields={"title"})
      */
     private $slug;

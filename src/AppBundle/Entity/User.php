@@ -29,8 +29,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- * @UniqueEntity(fields={"username"}, message="Un Utilisateur existe déjà avec ce nom")
- * @UniqueEntity(fields={"email"}, message="Cet email a été utilisé")
+ * @UniqueEntity(fields={"username"},                                 message="Un Utilisateur existe déjà avec ce nom")
+ * @UniqueEntity(fields={"email"},                                    message="Cet email a été utilisé")
  */
 class User implements UserInterface
 {
