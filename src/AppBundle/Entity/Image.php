@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * Class Doc Comment
+ *
+ * PHP version 7.0
+ *
+ * @category PHP_Class
+ * @package  AppBundle
+ * @author   trinhvo <ttvdep@gmail.com>
+ * @license  License Name
+ * @link     Link Name
+ */
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,6 +18,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Image
+ *
+ * @category PHP_Class
+ * @package  AppBundle\Entity
+ * @author   trinhvo <ttvdep@gmail.com>
+ * @license  License Name
+ * @link     Link Name
  *
  * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
@@ -107,13 +123,14 @@ class Image
 
     /**
      * Set file
+     *
      * @param UploadedFile $file
      */
     public function setFile(UploadedFile $file)
     {
         $this->file = $file;
 
-        if (null !== $this ->extension){
+        if (null !== $this ->extension) {
             $this->tempFilename = $this->extension;
 
             $this->extension = null;
@@ -137,7 +154,7 @@ class Image
      */
     public function preUpload()
     {
-        if (null === $this ->file){
+        if (null === $this ->file) {
             return;
         }
 
@@ -151,13 +168,13 @@ class Image
      */
     public function upload()
     {
-        if (null === $this->file){
+        if (null === $this->file) {
             return;
         }
 
-        if (null !== $this->tempFilename){
+        if (null !== $this->tempFilename) {
             $oldFile = $this->getUploadRootDir().'/'.$this->tempFilename;
-            if(file_exists($oldFile)){
+            if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
         }
@@ -177,7 +194,7 @@ class Image
      */
     public function removeUpload()
     {
-        if (file_exists($this->tempFilename)){
+        if (file_exists($this->tempFilename)) {
             unlink($this->tempFilename);
         }
     }
@@ -192,11 +209,8 @@ class Image
         return __DIR__.'../../../../web/'.$this->getUploadDir();
     }
 
-
     public function getWebPath()
     {
         return $this->getUploadDir().'/'.$this->getId().'.'.$this->getExtension();
     }
-
 }
-

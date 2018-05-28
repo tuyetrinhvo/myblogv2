@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * Class Doc Comment
+ *
+ * PHP version 7.0
+ *
+ * @category PHP_Class
+ * @package  AppBundle
+ * @author   trinhvo <ttvdep@gmail.com>
+ * @license  License Name
+ * @link     Link Name
+ */
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -11,10 +21,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Article
  *
+ * @category PHP_Class
+ * @package  AppBundle\Entity
+ * @author   trinhvo <ttvdep@gmail.com>
+ * @license  License Name
+ * @link     Link Name
+ *
  * @ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ArticleRepository")
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"title"}, message="Un article existe déjà avec ce titre")
+ * @UniqueEntity(fields={"title"},                                       message="Un article existe déjà avec ce titre")
  */
 class Article
 {

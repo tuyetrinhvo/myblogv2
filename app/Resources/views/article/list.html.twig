@@ -64,12 +64,12 @@
                     <a href="{{ path('article_delete', {'slug' : article.slug }) }}" onclick="return confirm('Vous voulez supprimer cet article ?')"><img src="/assets/img/delete.png" alt="delete" class="bottom" title="Cliquez pour supprimer article"/></a>
                     {% endif %}
                 </h3>
-                <p class="author"><em>Ecrit le</em> {{ article.dateCreated|date('d-m-Y') }}.
+                <p class="author-list"><em>Ecrit le</em> {{ article.dateCreated|date('d-m-Y') }}.
                  {% if article.dateUpdated is not null %}
                   <em>Modifié le</em> {{ article.dateUpdated|date('d-m-Y') }}
                   {% endif %}</p>
 
-                <p class="author"><em>Auteur : <a href="{{ path('user_edit', {'slug' : article.author.slug}) }}" title="Cliquez pour modifier utilisateur">{{ article.author.username }}</a></em></p>
+                <p class="author-list"><em>Auteur : <a href="{{ path('user_edit', {'slug' : article.author.slug}) }}" title="Cliquez pour modifier utilisateur">{{ article.author.username }}</a></em></p>
 
                 <p>{{ article.content }}</p>
                 <hr>

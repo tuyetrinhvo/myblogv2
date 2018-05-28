@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * Class Doc Comment
+ *
+ * PHP version 7.0
+ *
+ * @category PHP_Class
+ * @package  AppBundle
+ * @author   trinhvo <ttvdep@gmail.com>
+ * @license  License Name
+ * @link     Link Name
+ */
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -25,15 +35,19 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class User implements UserInterface
 {
     /**
+     * Private variable Id
+     *
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id",               type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
+     * Private variable Username
+     *
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, unique=true)
@@ -41,6 +55,8 @@ class User implements UserInterface
     private $username;
 
     /**
+     * Private variable Password
+     *
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
@@ -48,6 +64,8 @@ class User implements UserInterface
     private $password;
 
     /**
+     * Private variable Email
+     *
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
@@ -55,6 +73,8 @@ class User implements UserInterface
     private $email;
 
     /**
+     * Private variable Roles
+     *
      * @var array
      *
      * @ORM\Column(name="roles", type="array")
@@ -62,6 +82,8 @@ class User implements UserInterface
     private $roles = ['ROLE_USER'];
 
     /**
+     * Private variable
+     *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Avatar", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      * @Assert\Valid()
@@ -69,9 +91,11 @@ class User implements UserInterface
     private $avatar;
 
     /**
+     * Private variable Slug
+     *
      * @var string
      *
-     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     * @ORM\Column(name="slug",         type="string", length=255, unique=true)
      * @Gedmo\Slug(fields={"username"})
      */
     private $slug;

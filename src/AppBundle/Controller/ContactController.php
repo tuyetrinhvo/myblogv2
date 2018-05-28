@@ -7,19 +7,17 @@
  * @category PHP_Class
  * @package  AppBundle
  * @author   trinhvo <ttvdep@gmail.com>
- * @license  tuyetrinhvo@2018
+ * @license  License Name
  * @link     Link Name
  */
 namespace AppBundle\Controller;
 
-use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Form\Type\ContactType;
-use Swift_Message;
 
 /**
  * Class ContactController
@@ -27,7 +25,7 @@ use Swift_Message;
  * @category PHP_Class
  * @package  AppBundle\Controller
  * @author   trinhvo <ttvdep@gmail.com>
- * @license  tuyetrinhvo@2018
+ * @license  License Name
  * @link     Link Name
  */
 class ContactController extends Controller
@@ -35,10 +33,11 @@ class ContactController extends Controller
     /**
      * Function contactAction
      *
-     * @param Request $request Some argument description
+     * @param Request       $request Some argument description
+     * @param \Swift_Mailer $mailer  Some argument description
      *
      * @Route("/contact", name="contact")
-     * @Method({"GET",         "POST"})
+     * @Method({"GET",    "POST"})
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
@@ -55,25 +54,27 @@ class ContactController extends Controller
                 ->setSubject('Message depuis mon blog')
                 ->setFrom('noreply@ttvo.fr')
                 ->setTo('tuyetrinhvo@gmail.com')
-                ->setBody('Contenu du message : ' . $data['message'].'<br/>Message envoyé par : '.$data['nom'].'<br/> Son adresse email : '.$data['email'])
-                ->setContentType('text/html')
-            ;
+                ->setBody(
+                    'Contenu du message : ' . $data['message'].
+                    '<br/>Message envoyé par : '.$data['nom'].
+                    '<br/> Son adresse email : '.$data['email']
+                )
+                ->setContentType('text/html');
 
-            if ($mailer->send($mail)){
+            if ($mailer->send($mail)) {
+                $this->addFlash('success', 'Le message a été bien envoyé.');
 
-            $this->addFlash('success', 'Le message a été bien envoyé.');
-
-            return $this->redirectToRoute('contact');
+                return $this->redirectToRoute('contact');
             }
 
             $this->addFlash('error', 'Le message n\'a pas été envoyé.');
 
             return $this->redirectToRoute('contact');
-
         }
 
         return $this->render(
-            'contact/contact.html.twig', [
+            'contact/contact.html.twig',
+            [
                 'form' => $form->createView()
             ]
         );
