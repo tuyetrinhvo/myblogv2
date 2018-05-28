@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * Class Doc Comment
+ *
+ * PHP version 7.0
+ *
+ * @category PHP_Class
+ * @package  AppBundle
+ * @author   trinhvo <ttvdep@gmail.com>
+ * @license  License Name
+ * @link     Link Name
+ */
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,6 +17,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
+ *
+ * @category PHP_Class
+ * @package  AppBundle\Entity
+ * @author   trinhvo <ttvdep@gmail.com>
+ * @license  License Name
+ * @link     Link Name
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentRepository")

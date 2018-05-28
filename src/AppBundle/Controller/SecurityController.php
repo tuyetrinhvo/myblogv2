@@ -7,7 +7,7 @@
  * @category PHP_Class
  * @package  AppBundle
  * @author   trinhvo <ttvdep@gmail.com>
- * @license  tuyetrinhvo@2018
+ * @license  License Name
  * @link     Link Name
  */
 namespace AppBundle\Controller;
@@ -23,7 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  * @category PHP_Class
  * @package  AppBundle\Controller
  * @author   trinhvo <ttvdep@gmail.com>
- * @license  tuyetrinhvo@2018
+ * @license  License Name
  * @link     Link Name
  */
 class SecurityController extends Controller

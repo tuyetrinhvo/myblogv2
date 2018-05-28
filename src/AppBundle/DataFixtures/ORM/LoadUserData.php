@@ -29,7 +29,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @license  License Name
  * @link     Link Name
  */
-class LoadUserData extends AbstractFixture implements OrderedFixtureInterface,
+class LoadUserData extends AbstractFixture implements
+    OrderedFixtureInterface,
     ContainerAwareInterface
 {
     /**

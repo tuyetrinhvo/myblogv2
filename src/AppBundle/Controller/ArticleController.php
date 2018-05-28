@@ -7,7 +7,7 @@
  * @category PHP_Class
  * @package  AppBundle
  * @author   trinhvo <ttvdep@gmail.com>
- * @license  tuyetrinhvo@2018
+ * @license  License Name
  * @link     Link Name
  */
 namespace AppBundle\Controller;
@@ -29,13 +29,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * @category PHP_Class
  * @package  AppBundle\Controller
  * @author   trinhvo <ttvdep@gmail.com>
- * @license  tuyetrinhvo@2018
+ * @license  License Name
  * @link     Link Name
  */
 class ArticleController extends Controller
 {
     /**
      * Function listArticleAction
+     *
+     * @param Request $request Some argument description
      *
      * @Route("/blog/posts", name="article_list")
      * @Method({"GET"})
@@ -59,17 +61,19 @@ class ArticleController extends Controller
         );
 
         return $this->render(
-            'article/list.html.twig', ['articles' => $articles]);
+            'article/list.html.twig',
+            ['articles' => $articles]
+        );
     }
 
     /**
      * Function showArticleAction
      *
-     * @param Article $slug Some argument description
      * @param Request $request Some argument description
+     * @param Article $slug    Some argument description
      *
      * @Route("/blog/posts/{slug}", name="article_show")
-     * @Method({"GET",         "POST"})
+     * @Method({"GET",              "POST"})
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
@@ -108,13 +112,17 @@ class ArticleController extends Controller
             $em->flush();
 
             $this->addFlash('success', 'Le Commentaire a été bien posté !');
-            return $this->redirectToRoute('article_show', [
-                    'slug' => $slug]
+            return $this->redirectToRoute(
+                'article_show',
+                [
+                    'slug' => $slug
+                ]
             );
         }
 
         return $this->render(
-            'article/show.html.twig', [
+            'article/show.html.twig',
+            [
                 'article' => $article,
                 'form' => $form->createView(),
                 'comments' => $comments,
@@ -128,7 +136,7 @@ class ArticleController extends Controller
      * @param Request $request Some argument description
      *
      * @Route("/blog/posts/create/", name="article_create")
-     * @Method({"GET",         "POST"})
+     * @Method({"GET",               "POST"})
      *
      * @Security("is_granted('ROLE_USER')")
      *
@@ -154,7 +162,8 @@ class ArticleController extends Controller
         }
 
         return $this->render(
-            'article/create.html.twig', [
+            'article/create.html.twig',
+            [
                 'form' => $form->createView()
             ]
         );
@@ -167,7 +176,7 @@ class ArticleController extends Controller
      * @param Request $request Some argument description
      *
      * @Route("/blog/posts/{slug}/edit", name="article_edit")
-     * @Method({"GET",            "POST"})
+     * @Method({"GET",                   "POST"})
      *
      * @Security("is_granted('ROLE_USER')")
      *
@@ -176,9 +185,8 @@ class ArticleController extends Controller
     public function editArticleAction(Article $article, Request $request)
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')
-            || ($article->getAuthor()->getUsername() === $this
-                    ->get('security.token_storage')->getToken()->getUser()->getUsername())) {
-
+            || ($article->getAuthor()->getUsername() === $this->get('security.token_storage')->getToken()->getUser()->getUsername())
+        ) {
             $form = $this->createForm(ArticleType::class, $article);
 
             $form->handleRequest($request);
@@ -190,12 +198,11 @@ class ArticleController extends Controller
 
                 return $this->redirectToRoute('article_list');
             }
-
         } else {
-
             $this->addFlash(
                 'error',
-                'Vous ne pouvez pas modifier cet article car vous n\'êtes pas son auteur.'
+                'Vous ne pouvez pas modifier cet article car 
+                vous n\'êtes pas son auteur.'
             );
 
             return $this->redirectToRoute('article_list');
@@ -217,7 +224,7 @@ class ArticleController extends Controller
      * @param Article $article Some argument description
      *
      * @Route("/blog/posts/{slug}/delete", name="article_delete")
-     * @Method({"GET",              "POST"})
+     * @Method({"GET",                     "POST"})
      *
      * @Security("is_granted('ROLE_USER')")
      *
@@ -226,23 +233,20 @@ class ArticleController extends Controller
     public function deleteArticleAction(Article $article)
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')
-            || ($article->getAuthor()->getUsername() === $this
-                    ->get('security.token_storage')->getToken()->getUser()->getUsername())) {
-
+            || ($article->getAuthor()->getUsername() === $this->get('security.token_storage')->getToken()->getUser()->getUsername())
+        ) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($article);
             $em->flush();
 
             $this->addFlash('success', 'L\'article a bien été supprimé.');
-
-            } else{
-
+        } else {
             $this->addFlash(
                 'error',
-                'Vous ne pouvez pas supprimer cet article car vous n\'êtes pas son auteur.'
+                'Vous ne pouvez pas supprimer cet article car vous 
+                n\'êtes pas son auteur.'
             );
         }
-            return $this->redirectToRoute('article_list');
-
+        return $this->redirectToRoute('article_list');
     }
 }

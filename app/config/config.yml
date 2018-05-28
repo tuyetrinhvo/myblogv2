@@ -67,7 +67,7 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: mail
+    transport: smtp
     host:      "%mailer_host%"
     encryption: ssl
     port:      465
